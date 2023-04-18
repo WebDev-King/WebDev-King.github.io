@@ -39,13 +39,313 @@
                   
                     let guardSpeak = "Guard: Great, here you go. *You recieve lots of food*";
                     alert( guardSpeak );
+
+                    storyPrompt = "You move on...";
+                    alert(storyPrompt);
+
+                    storyPrompt = confirm("You go down the road and see a fellow adventurer who looks tired. Do you approach?");
+                    alert( storyPrompt );
+
+                    if (storyPrompt == true) {
+
+                        let fellowSpeak = confirm("Weary Man: Hello, I've traveled far and am very hungry. Would you share your food?");
+                        alert(fellowSpeak);
+
+                        if (fellowSpeak == true) {
+
+                            fellowSpeak = "Weary Man: Oh thank you so much! Here is a sword, you need it more than I do now...";
+                            alert(fellowSpeak);
+
+                            storyPrompt = "You have obtained a sword...";
+                            alert(storyPrompt);
+
+                            storyPrompt = confirm("OH NO! Down the road you see a goblin. Do you attack?");
+                            alert(storyPrompt);
+
+                            if (storyPrompt == true) {
+
+                                storyPrompt = "Your sword wins the day! You continue onward...";
+                                alert(storyPrompt);
+
+                                storyPrompt = confirm("After more traveling, you meet a farmer. Do you speak to him?");
+                                alert(storyPrompt)
+
+                                if (storyPrompt == true) {
+
+                                    let farmerTalk = confirm("Farmer: Hey there! Monsters keep attacking my farm, can I have your sword? I'll tell you a helpful tip...");
+                                    alert(farmerTalk);
+
+                                    if (farmerTalk == true) {
+
+                                        farmerTalk = "Farmer: Awesome! There are orks ahead, take the shortcut throught the old forest."
+                                        alert(farmerTalk);
+
+                                        storyPrompt = "You give away your sword and move on...";
+                                        alert(storyPrompt);
+
+                                        storyPrompt = confirm("While walking through the forest, you meet an old hermit. He approcahes you...");
+                                        alert(storyPrompt);
+
+                                        let hermitSpeak = "Hermit: T'sup dog, I'm finna help you out with a fire tip, but it's gonna be a puzzle no cap..."
+                                        alert(hermitSpeak);
+
+                                        hermitSpeak = "Hermit: I have to do it that way or this game would be too easy. Ready? Pay attention...";
+                                        alert(hermitSpeak);
+
+                                        hermitSpeak = "Here are two powerful weapons: a Claymore and Courage. One is is strong, but fails you soon. The other names a beast of great age. (it kinda rhymes)";
+                                        alert(hermitSpeak);
+
+                                        storyPrompt = "You obtain a Claymore sword and move onward...";
+                                        alert(storyPrompt);
+
+                                        storyPrompt = confirm("You have reached the Perilous Mountains and see a hidden cave. Do you go in?");
+                                        alert(storyPrompt);
+
+                                        if (storyPrompt == true) {
+
+                                            storyPrompt = "Inside you find an Ancient Dragon!! He sees you and it's too late to escape..."
+                                            alert(storyPrompt);
+
+                                            let dragonSpeak = confirm("Ancient Dragon: Hello young one, are you here to slay me?");
+                                            alert(dragonSpeak);
+
+                                            if (dragonSpeak == true) {
+
+                                                storyPrompt = "You have been pwned by the dragon and failed the quest.";
+                                                alert(storyPrompt);
+
+                                                throw '';
+
+                                            } else {
+
+                                                dragonSpeak = "Ancient Dragon: Wise choice, that sword would never beat me...";
+                                                alert(dragonSpeak);
+
+                                                dragonSpeak = "Ancient Dragon: Tell you what, I'm old and bored. If you beat me at a game, I'll let you take one treasure from my cave...";
+                                                alert(dragonSpeak);
+
+                                                let dragonGame = prompt("Ancient Dragon: What is my name?")
+
+                                                if (dragonGame == "Courage") {
+
+                                                    dragonSpeak = "Courage: Huh, how did you know? Anyway, feel free to take one treasure, but only one."
+                                                    alert(dragonSpeak);
+
+                                                    storyPrompt = "In the cave, two things catch your eye: A bag of diamonds and a Kingly Crown.";
+                                                    alert(storyPrompt);
+
+                                                    storyPrompt = confirm("Do you take the diamonds?");
+
+                                                    if (storyPrompt == true) {
+
+                                                        storyPrompt = "Greedy!! You return home rich, but you failed the quest let the king down. Shame was brought down on your entire family..."
+                                                        alert(storyPrompt);
+
+                                                        throw '';
+
+                                                    } else {
+
+                                                        storyPrompt = "You take the Kingly Crown..."
+                                                        alert(storyPrompt);
+
+                                                        storyPrompt = "After a uneventful journey home, you meet with the King and present him his Kingly Crown..."
+                                                        alert(storyPrompt);
+
+                                                        kingSpeak = "King: Great job adventurer, you have done well. As your reward, I'm making you one of my Sysadmins."
+                                                        alert(kingSpeak);
+
+                                                        storyPrompt = "You become a respected Sysadmin and live out your days in comfort and happiness. Thanks for playing."
+                                                        alert(storyPrompt);
+
+                                                        throw '';
+
+                                                    };
+
+                                                } else {
+
+                                                    dragonSpeak = "Ancient Dragon: Fail!! Now I get to eat you a la carte..."
+                                                    alert(dragonSpeak);
+
+                                                    storyPrompt = "The dragon makes an adventurer kabob out of you. You have failed the quest."
+                                                    alert(storyPrompt);
+
+                                                    throw '';
+
+                                                };
+
+                                            };
+
+                                        } else {
+
+                                            storyPrompt = "You spend weeks searching the mountains, but run out of food and return empty-handed.";
+                                            alert(storyPrompt);
+
+                                            storyPrompt = "You have failed the quest. Maybe you should look for a different career...";
+                                            alert(storyPrompt);
+
+                                            throw '';
+
+                                        };
+
+                                    } else {
+
+                                        storyPrompt = "You move on...";
+                                        alert(storyPrompt);
+
+                                        storyPrompt = "AAAUUGGHHH!! You run into a pack of orks that eat you for lunch."
+                                        alert(storyPrompt);
+
+                                        storyPrompt = "You are dead, and have failed the quest...";
+                                        alert(storyPrompt);
+
+                                        throw '';
+
+
+                                    };
+
+                                } else {
+
+                                    storyPrompt = "You move on...";
+                                    alert(storyPrompt);
+
+                                    storyPrompt = "AAAUUGGHHH!! You run into a pack of orks that eat you for lunch."
+                                    alert(storyPrompt);
+
+                                    storyPrompt = "You are dead, and have failed the quest...";
+                                    alert(storyPrompt);
+
+                                    throw '';
+
+                                };
+
+                            } else {
+
+                                storyPrompt = "He sees you and attacks while screeching, 'all your base are belong to us!'";
+                                alert(storyPrompt);
+
+                                storyPrompt = "You are dead, and have failed the quest...";
+                                alert(storyPrompt);
+
+                                throw '';
+
+                            };
+
+
+
+                        } else {
+
+                            storyPrompt = "He looks sad, but you move on...";
+                            alert(storyPrompt);
+
+                            storyPrompt = confirm("OH NO! Down the road you see a goblin. Do you attack?");
+                            alert(storyPrompt);
+
+                            if (storyPrompt == true) {
+
+                                storyPrompt = "You attack, but have no weapon and he kicks your butt...";
+                                alert(storyPrompt);
+
+                                storyPrompt = "You are dead, and have failed the quest...";
+                                alert(storyPrompt);
+
+                                throw '';
+
+
+                            } else {
+            
+                                storyPrompt = "He sees you and attacks while screeching, 'all your base are belong to us!'";
+                                alert(storyPrompt);
+
+                                storyPrompt = "You are dead, and have failed the quest...";
+                                alert(storyPrompt);
+
+                                throw '';
+                            
+                            };
+
+
+                        };
+
+                    } else {
+
+                        storyPrompt = confirm("OH NO! Down the road you see a goblin. Do you attack?");
+                        alert(storyPrompt);
+
+                        if (storyPrompt == true) {
+
+                            storyPrompt = "You attack, but have no weapon and he kicks your butt...";
+                            alert(storyPrompt);
+
+                            storyPrompt = "You are dead, and have failed the quest...";
+                            alert(storyPrompt);
+
+                            throw '';
+
+
+                        } else {
+        
+                            storyPrompt = "He sees you and attacks while screeching, 'all your base are belong to us!'";
+                            alert(storyPrompt);
+
+                            storyPrompt = "You are dead, and have failed the quest...";
+                            alert(storyPrompt);
+
+                            throw '';
+
+                        };
+
+
+                    };
                   
                 } else {
                   
                     guardSpeak = "Guard: Suit yourself...";
                     alert( guardSpeak );
 
-                    foodSpeak = false;
+                    storyPrompt = confirm("You go down the road and see a fellow adventurer who looks tired. Do you approach?");
+                    alert( storyPrompt );
+
+                    if (storyPrompt == true) {
+
+                        let fellowSpeak = confirm("Weary Man: Hello, I've traveled far and am very hungry. Would you share your food?");
+                        alert(fellowSpeak);
+
+                        storyPrompt = "You have no food....";
+                        alert(storyPrompt);
+
+
+                    } else {
+
+                        let storyPrompt = "You move on...";
+                        alert(storyPrompt);
+                    };
+
+                    storyPrompt = confirm("OH NO! Down the road you see a goblin. Do you attack?");
+                    alert(storyPrompt);
+
+                    if (storyPrompt == true) {
+
+                        storyPrompt = "You attack, but have no weapon and he kicks your butt...";
+                        alert(storyPrompt);
+
+                        storyPrompt = "You are dead, and have failed the quest...";
+                        alert(storyPrompt);
+
+                        throw '';
+
+
+                    } else {
+        
+                        storyPrompt = "He sees you and attacks while screeching, 'all your base are belong to us!'";
+                        alert(storyPrompt);
+
+                        storyPrompt = "You are dead, and have failed the quest...";
+                        alert(storyPrompt);
+
+                        throw '';
+
+                    };
+
                   
                 };
               
@@ -64,21 +364,9 @@
                 let fellowSpeak = confirm("Weary Man: Hello, I've traveled far and am very hungry. Would you share your food?");
                 alert(fellowSpeak);
 
-                if (fellowSpeak == true && foodSpeak == true) {
+                storyPrompt = "You have no food....";
+                alert(storyPrompt);
 
-                    fellowSpeak = "Weary Man: Oh thank you so much! Here, have my sword, I don't need it just now.";
-                    alert(fellowSpeak);
-
-                    storyPrompt = "You take the sword and move on...";
-                    alert(storyPrompt);
-
-                } else {
-
-                    storyPrompt = "He looks sad, but you move on...";
-                    alert(storyPrompt);
-
-                    swordPrompt = false;
-                };
 
             } else {
 
@@ -86,11 +374,18 @@
                 alert(swordPrompt);
             };
 
-            storyPrompt = "OH NO! Down the road you see a goblin. Do you attack?";
+            storyPrompt = confirm("OH NO! Down the road you see a goblin. Do you attack?");
             alert(storyPrompt);
 
-            if (storyPrompt == true && swordPrompt == true) {
+            if (storyPrompt == true) {
 
+                storyPrompt = "You attack, but have no weapon and he kicks your butt...";
+                alert(storyPrompt);
+
+                storyPrompt = "You are dead, and have failed the quest...";
+                alert(storyPrompt);
+
+                throw '';
 
 
             } else {
@@ -100,6 +395,8 @@
 
             storyPrompt = "You are dead, and have failed the quest...";
             alert(storyPrompt);
+
+            throw '';
 
             };
           
@@ -113,6 +410,5 @@
       }
       
   </script>
-  
 </body>
 </html>
