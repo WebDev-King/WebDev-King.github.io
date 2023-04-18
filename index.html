@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-  
+      
   <h1> Hello World! </h1>
     
     <button onclick="myFunction()"> Begin </button>
@@ -25,6 +25,83 @@
               
               kingSpeak = "King: Excellent! I charge you to find the crown of my forefathers. You will find it in the Perilous Mountains. Best of luck, brave one!";
               alert( kingSpeak );
+
+                        
+            let storyPrompt = confirm("You leave the King's castle and meet a guard at the gate. Do you talk to him?");
+            alert( storyPrompt );
+          
+            if (storyPrompt == true) {
+              
+                let foodSpeak = confirm("Guard: Hi! I hear the King wants you to go to the Perilous Mountains... that's a long journey, want some food?");
+                alert( foodSpeak );
+              
+                if ( foodSpeak == true) {
+                  
+                    let guardSpeak = "Guard: Great, here you go. *You recieve lots of food*";
+                    alert( guardSpeak );
+                  
+                } else {
+                  
+                    guardSpeak = "Guard: Suit yourself...";
+                    alert( guardSpeak );
+
+                    foodSpeak = false;
+                  
+                };
+              
+            } else {
+              
+                storyPrompt = "You move on..."
+                alert( storyPrompt );
+              
+            };
+
+            storyPrompt = confirm("You go down the road and see a fellow adventurer who looks tired. Do you approach?");
+            alert( storyPrompt );
+
+            if (storyPrompt == true) {
+
+                let fellowSpeak = confirm("Weary Man: Hello, I've traveled far and am very hungry. Would you share your food?");
+                alert(fellowSpeak);
+
+                if (fellowSpeak == true && foodSpeak == true) {
+
+                    fellowSpeak = "Weary Man: Oh thank you so much! Here, have my sword, I don't need it just now.";
+                    alert(fellowSpeak);
+
+                    storyPrompt = "You take the sword and move on...";
+                    alert(storyPrompt);
+
+                } else {
+
+                    storyPrompt = "He looks sad, but you move on...";
+                    alert(storyPrompt);
+
+                    swordPrompt = false;
+                };
+
+            } else {
+
+                let swordPrompt = "You move on...";
+                alert(swordPrompt);
+            };
+
+            storyPrompt = "OH NO! Down the road you see a goblin. Do you attack?";
+            alert(storyPrompt);
+
+            if (storyPrompt == true && swordPrompt == true) {
+
+
+
+            } else {
+                        
+            storyPrompt = "He sees you and attacks while screeching, 'all your base are belong to us!'";
+            alert(storyPrompt);
+
+            storyPrompt = "You are dead, and have failed the quest...";
+            alert(storyPrompt);
+
+            };
           
           } else {
               
@@ -32,35 +109,6 @@
               alert( kingSpeak );
           
           };
-          
-          let storyPrompt = confirm("You leave the King's castle and meet a guard at the gate. Do you talk to him?");
-          alert( storyPrompt );
-          
-          if (storyPrompt == true) {
-              
-              let guardSpeak = confirm("Guard: Hi! I hear the King wants you to go to the Perilous Mountains... that's a long journey, want some food?");
-              alert( guardSpeak );
-              
-              if ( guardSpeak == true) {
-                  
-                  let guardSpeak = "Guard: Great, here you go. *You recieve lots of food*";
-                  alert( guardSpeak );
-                  
-              }; else {
-                  
-                  guardSpeak = "Guard: Suit yourself...";
-                  alert( guardSpeak );
-                  
-              };
-              
-          }; else {
-              
-              storyPrompt = "You move on..."
-              alert( storyPrompt );
-              
-          };
-          
-          
          
       }
       
