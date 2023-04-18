@@ -32,6 +32,32 @@
               alert( kingSpeak );
           
           };
+          
+          let storyPrompt = confirm("You leave the King's castle and meet a guard at the gate. Do you talk to him?");
+          alert( storyPrompt );
+          
+          if (storyPrompt == true) {
+              
+              let guardSpeak = confirm("Guard: Hi! I hear the King wants you to go to the Perilous Mountains... that's a long journey, want some food?")'
+              alert( guardSpeak );
+              
+              if ( guardSpeak == true) {
+                  
+                  let guardSpeak = "Guard: Great, here you go. *You recieve lots of food*"
+                  alert( guardSpeak );
+                  
+              }; else {
+                  
+                  guardSpeak = "Guard: Suit yourself..."
+              };
+              
+          }; else {
+              
+              storyPrompt = "You move on..."
+              alert( storyPrompt );
+          };
+          
+          
          
       }
       
