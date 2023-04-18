@@ -10,26 +10,30 @@
   
   <h1> Hello World! </h1>
     
+    <button onclick="myFunction()"> Begin </button>
+    
   <script>
       
       document.write("Welcome to....JavaScriptian! A magical land whose King has given you a task: seek the lost crown of his forefathers....");
       document.write("Follow to JS Interactions to complete the story. Press 'OK' for the first option, and 'Cancel' for the second.");
       
-      
-      let kingSpeak = confirm("King: Welcome brave adventurer, I have a special quest for you. Do you accept this? You will be well rewarded....");
-      alert( kingSpeak );
-      
-      if (kingSpeak == true) {
-          
-          kingSpeak = "Excellent! I charge you to find the crown of my forefathers. You will find it in the Perilous Mountains. Best of luck, brave one!";
+      function myFunction() {
+          let kingSpeak = confirm("King: Welcome brave adventurer, I have a special quest for you. Do you accept this? You will be well rewarded....");
           alert( kingSpeak );
-  
-      } else {
           
-          kingSpeak = "I'm sorry to hear that....";
-          alert( kingSpeak );
-      };
-      
+          if (kingSpeak == true) {
+              
+              kingSpeak = "King: Excellent! I charge you to find the crown of my forefathers. You will find it in the Perilous Mountains. Best of luck, brave one!";
+              alert( kingSpeak );
+          
+          } else {
+              
+              kingSpeak = "King: I'm sorry to hear that....";
+              alert( kingSpeak );
+          
+          };
+         
+      }
       
   </script>
   
