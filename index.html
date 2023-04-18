@@ -11,17 +11,26 @@
   <h1> Hello World! </h1>
     
   <script>
-      document.write("Console.log(Testing...testing...is this thing on?)")
-  </script>
-      <br>
-  <script>
-      var quest
-      quest = "Testing...testing...is this thing on?"
-      console.log(quest)
       
-      var answ 
-      answ = "Yes, it's working"
-      document.write(answ)
+      document.write("Welcome to....JavaScriptian! A magical land whose King has given you a task: seek the lost crown of his forefathers....");
+      document.write("Follow to JS Interactions to complete the story. Press 'OK' for the first option, and 'Cancel' for the second.");
+      
+      
+      let kingSpeak = confirm("King: Welcome brave adventurer, I have a special quest for you. Do you accept this? You will be well rewarded....");
+      alert( kingSpeak );
+      
+      if (kingSpeak == true) {
+          
+          kingSpeak = "Excellent! I charge you to find the crown of my forefathers. You will find it in the Perilous Mountains. Best of luck, brave one!";
+          alert( kingSpeak );
+  
+      } else {
+          
+          kingSpeak = "I'm sorry to hear that....";
+          alert( kingSpeak );
+      };
+      
+      
   </script>
   
 </body>
