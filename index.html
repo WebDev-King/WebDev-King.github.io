@@ -5,37 +5,90 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
-    <style>
-        button {
-            background-color: rgb(132, 222, 245);
-            color: navy;
-            width: 60px;
-            height: 20px;
-        }
-    </style>
 </head>
 <body>
 
-    <h3>Thor Trivia!!</h3>
-    <p>Read each question and guess the answer. Click the corresponding button to see if you are correct.</p>
-    <br>
-    <p>1. Who is Thor's father?</p>
-    <button onclick="alert(thor.father)">Answer</button>
-    <p>2. What is Thor god of?</p>
-    <button onclick="alert(thor.powers)">Answer</button>
-    <p>3. What weapon does Thor wield?</p>
-    <button onclick="alert(thor.weapon)">Answer</button>
+    <h1>PASTA SIMULATOR:</h1>
+    <p>You are the chef, choose how you with to cook the pasta and serve it...</p>
+    <p>Tip: use the console...</p>
+
+    <table>
+        <tr>
+            <th>Input</th>
+        </tr>
+        <tr>
+            <td>First, boil the water... <br><button onclick="boilFunc()">Enter Temp.</button></td>
+        </tr>
+        <tr>
+            <td>Should we add sauce? <br> <button onclick="sauceFunc()">Sauce?</button></td>
+        </tr>
+        <tr> 
+            <td> How many ingredients? <br> <button onclick="optionFunc()">See the ingredient options</button> <br> <br> <button onclick="ingredientFunc()">Choose number of ingredients</button> </td>
+        </tr>
+    </table>
+
+    <div></div>
 
     <script>
-        let thor = {
 
-            powers: "Lightning & Thunder",
-            weapon: "Mjolnir",
-            father: "Odin",
+        const pasta = {
+            
+            isBoiling: " ",
+            sauce: false,
+            ingredients: ["mushroom", "sausage", "cheese", "salt", "oregano"]
 
+        };
+
+        let boilFunc = function() {
+
+            let boilTemp = prompt("What temp should the water be to boil?");
+            alert(boilTemp);
+
+            if (boilTemp >= 212) {
+                pasta.isBoiling = "The pasta is boiling"
+                console.log("The pasta is cooked...");
+            } else {
+                console.log("The pasta is undercooked...");
+            }
         }
-    </script>
 
+        let sauceFunc = function() {
+            let sauceConf = confirm("Do you want to add sauce?");
+            alert(sauceConf);
+
+            if (sauceConf == true) {
+                console.log("Delicious! Pasta needs sauce...");
+            } else {
+                console.log("Ewww, dry pasta, really?!");
+            }
+        }
+
+        let ingredientFunc = function() {
+            let ingredPrompt = prompt("How many ingredients do you want? (1-5)");
+            alert(ingredPrompt);
+
+            if (ingredPrompt == 1) {
+                console.log("You added" + " " + pasta.ingredients[0]);
+            } else if (ingredPrompt == 2) {
+                console.log("You added" + " " + pasta.ingredients[0] + "&" + pasta.ingredients[1]);
+            } else if (ingredPrompt == 3) {
+                console.log("You added" + " " + pasta.ingredients[0] + "&" + pasta.ingredients[1] + "&" + pasta.ingredients[2]);
+            } else if (ingredPrompt == 4) {
+                console.log("You added" + " " + pasta.ingredients[0] + "&" + pasta.ingredients[1] + "&" + pasta.ingredients[2] + "&" + pasta.ingredients[3]);
+            } else if (ingredPrompt == 5) {
+                console.log("You added" + " " + pasta.ingredients[0] + "&" + pasta.ingredients[1] + "&" + pasta.ingredients[2] + "&" + pasta.ingredients[3] + "&" + pasta.ingredients[4]);
+            } else if (ingredPrompt >= 6){
+                console.log("Ummm...there's not that many choices....");
+            } else {
+                console.log("Sigh...")
+            };
+        }
+
+        let optionFunc = function() {
+            console.log(pasta.ingredients)
+        }
+
+    </script>
+    
 </body>
 </html>
