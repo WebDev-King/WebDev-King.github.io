@@ -7,69 +7,65 @@
     <title>Document</title>
     
     <style> 
-          .dragme{
-			position:relative;
-			width: 270px;
-			height: 203px;
-			cursor: move;
-		}
-	#draggable {
-			background-color: #ccc;
-			border: 1px solid #000;
-		}
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	h1 {
+		text-align: center;
+	}
+	.canvas-holder {
+		width: 650px;
+		padding-top: 20px;
+		margin: 0 auto;
+	}
     </style>
     
 </head>
-<body>
-    
-<div id="draggable" class="dragme">"Click and drag to make the spaceship fly!"</div>
-<img src= "ufo.png" alt="UFO PNG" class="dragme">
+<body onLoad="bouncing();">
+<h1> The Bouncing Ball </h1>
+	<div class="canvas-holder">
+  	<canvas id="myCanvas" width="650" height="250" style="border:3px  solid #000000;">
+  	</canvas>
+	</div>
+	
+	<script>
 
-    <script>
-	function startDrag(e) {
-				if (!e) {
-					var e = window.event;
-				}
 
-				var targ = e.target ? e.target : e.srcElement;
+	var context;
 
-				if (targ.className != 'dragme') {return};
+	var initialX3=650;
+	var initialY3=250;
 
-					offsetX = e.clientX;
-					offsetY = e.clientY;
+	var x3=10;
+	var y3=10;
+		
+	function bouncing()
+	{
+	  context= myCanvas.getContext('2d');
+	  setInterval(draw,20);
+	}
 
-				if(!targ.style.left) { targ.style.left='0px'};
-				if (!targ.style.top) { targ.style.top='0px'};
+	function draw()
+	{
 
-				coordX = parseInt(targ.style.left);
-				coordY = parseInt(targ.style.top);
-				drag = true;
+		context.clearRect(0,0,650,250);
 
-					document.onmousemove=dragDiv;
-				
-			}
-			function dragDiv(e) {
-				if (!drag) {return};
-				if (!e) { var e= window.event};
-				var targ=e.target?e.target:e.srcElement;
-				// move div element
-				targ.style.left=coordX+e.clientX-offsetX+'px';
-				targ.style.top=coordY+e.clientY-offsetY+'px';
-				return false;
-			}
-			function stopDrag() {
-				drag=false;
-			}
-			window.onload = function() {
-				document.onmousedown = startDrag;
-				document.onmouseup = stopDrag;
-			}
+		context.beginPath();
+	  context.fillStyle="red";
 
-        let optionFunc = function() {
-            console.log(pasta.ingredients)
-        }
+	  context.arc(initialX3,initialY3,20,0,Math.PI*2,true);
+	  context.closePath();
+	  context.fill();
 
-    </script>
-    
+	if( initialX3<0 || initialX3>650) x3=-x3; 
+
+	if( initialY3<0 || initialY3>250) y3=-y3; 
+	initialX3+=x3; 
+	initialY3+=y3;
+	}
+		
+	</script>
+	
 </body>
 </html>
