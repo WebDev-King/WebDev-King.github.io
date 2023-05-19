@@ -4,271 +4,183 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    
+    <title>ImpossiPONG</title>
+
+    <style>
+      body{
+          background-color: dimgray;
+      }
+      #pong{
+          border: 2px solid #FFF;
+          position: absolute;
+          margin :auto;
+          top:0;
+          right:0;
+          left:0;
+          bottom:0;
+      }
+  </style>
+
 </head>
+<body>
 
-	<h1> AIR HOCKEY! </h1>
-	
-	<script>
-		
-	function buildTableMap() {
-	  let tableMap = []
-	  const tableHeight = 42
-	  const tableWidth = 24
-	  const goalWidth= 8
-	  const goalDepth= 3
-	  const cornerRadius = 3
-	  const cornerSteps = 5
-	  const endLength = (tableWidth - goalWidth - (cornerRadius * 2)) / 2
-	  const sideLength = (tableHeight - (cornerRadius * 2)) / 2
-	  const centerX = tableWidth / 2
-	  const centerY = tableHeight / 2
+  <canvas id="pong" width="600" height="400"></canvas>
 
-	  tableMap.push([{
-	    x: -(goalWidth / 2),
-	    y: centerY
-	  },{
-	    x: -(goalWidth / 2) - endLength,
-	    y: centerY
-	  }])
+    <script>
 
-	  tableMap.push([{
-	    x: (goalWidth / 2),
-	    y: centerY
-	  },{
-	    x: (goalWidth / 2) + endLength,
-	    y: centerY
-	  }])
+      const canvas = document.getElementById("pong");
+      const ctx = canvas.getContext('2d');
 
-	  tableMap.push([{
-	    x: -(goalWidth / 2),
-	    y: centerY + goalDepth
-	  },{
-	    x: (goalWidth / 2),
-	    y: centerY + goalDepth
-	  }])
+      const ball = {
+          x : canvas.width/2,
+          y : canvas.height/2,
+          radius : 10,
+          velocityX : 5,
+          velocityY : 5,
+          speed : 7,
+          color : "WHITE"
+      }
 
-	  tableMap.push([{
-	    x: -(goalWidth / 2),
-	    y: centerY + goalDepth
-	  },{
-	    x: -(goalWidth / 2),
-	    y: centerY
-	  }])
+      const user = {
+          x : 0,
+          y : (canvas.height - 100)/2,
+          width : 10,
+          height : 100,
+          score : 0,
+          color : "WHITE"
+      }
 
-	  tableMap.push([{
-	    x: (goalWidth / 2),
-	    y: centerY + goalDepth
-	  },{
-	    x: (goalWidth / 2),
-	    y: centerY
-	  }])
+      const com = {
+          x : canvas.width - 10,
+          y : (canvas.height - 100)/2,
+          width : 10,
+          height : 100,
+          score : 0,
+          color : "WHITE"
+      }
 
-	  tableMap.push([{
-	    x: centerX,
-	    y: centerY - cornerRadius
-	  },{
-	    x: centerX,
-	    y: -centerY + cornerRadius
-	  }])
+      const net = {
+          x : (canvas.width - 2)/2,
+          y : 0,
+          height : 10,
+          width : 2,
+          color : "WHITE"
+      }
 
-	  tableMap.push([{
-	    x: -centerX,
-	    y: centerY - cornerRadius
-	  },{
-	    x: -centerX,
-	    y: -centerY + cornerRadius
-	  }])
+      function drawRect(x, y, w, h, color){
+          ctx.fillStyle = color;
+          ctx.fillRect(x, y, w, h);
+      }
 
-	  tableMap.push([{
-	    x: -(goalWidth / 2),
-	    y: -centerY
-	  },{
-	    x: -(goalWidth / 2) - endLength,
-	    y: -centerY
-	  }])
+      function drawArc(x, y, r, color){
+          ctx.fillStyle = color;
+          ctx.beginPath();
+          ctx.arc(x,y,r,0,Math.PI*2,true);
+          ctx.closePath();
+          ctx.fill();
+      }
 
-	  tableMap.push([{
-	    x: (goalWidth / 2),
-	    y: -centerY
-	  },{
-	    x: (goalWidth / 2) + endLength,
-	    y: -centerY
-	  }])
+      canvas.addEventListener("mousemove", getMousePos);
 
-	  tableMap.push([{
-	    x: -(goalWidth / 2),
-	    y: -centerY - goalDepth
-	  },{
-	    x: (goalWidth / 2),
-	    y: -centerY - goalDepth
-	  }])
+      function getMousePos(evt){
+          let rect = canvas.getBoundingClientRect();
+          
+          user.y = evt.clientY - rect.top - user.height/2;
+      }
 
-	  tableMap.push([{
-	    x: -(goalWidth / 2),
-	    y: -centerY - goalDepth
-	  },{
-	    x: -(goalWidth / 2),
-	    y: -centerY
-	  }])
+      function resetBall(){
+          ball.x = canvas.width/2;
+          ball.y = canvas.height/2;
+          ball.velocityX = -ball.velocityX;
+          ball.speed = 7;
+      }
 
-	  tableMap.push([{
-	    x: (goalWidth / 2),
-	    y: -centerY - goalDepth
-	  },{
-	    x: (goalWidth / 2),
-	    y: -centerY
-	  }])
+      function drawNet(){
+          for(let i = 0; i <= canvas.height; i+=15){
+              drawRect(net.x, net.y + i, net.width, net.height, net.color);
+          }
+      }
 
-	  createCorner({
-	    x: centerX,
-	    y: centerY
-	  },{
-	    x: centerX - cornerRadius,
-	    y: centerY - cornerRadius
-	  })
+      function drawText(text,x,y){
+          ctx.fillStyle = "#FFF";
+          ctx.font = "75px fantasy";
+          ctx.fillText(text, x, y);
+      }
 
-	  createCorner({
-	    x: -centerX,
-	    y: centerY
-	  },{
-	    x: -centerX + cornerRadius,
-	    y: centerY - cornerRadius
-	  })
+      function collision(b,p){
+          p.top = p.y;
+          p.bottom = p.y + p.height;
+          p.left = p.x;
+          p.right = p.x + p.width;
+          
+          b.top = b.y - b.radius;
+          b.bottom = b.y + b.radius;
+          b.left = b.x - b.radius;
+          b.right = b.x + b.radius;
+          
+          return p.left < b.right && p.top < b.bottom && p.right > b.left && p.bottom > b.top;
+      }
 
-	  createCorner({
-	    x: centerX,
-	    y: -centerY
-	  },{
-	    x: centerX - cornerRadius,
-	    y: -centerY + cornerRadius
-	  })
+      function update(){
+          
+          if( ball.x - ball.radius < 0 ){
+              com.score++;
+              resetBall();
+          }else if( ball.x + ball.radius > canvas.width){
+              user.score++;
+              resetBall();
+          }
+          
+          ball.x += ball.velocityX;
+          ball.y += ball.velocityY;
+          
+          com.y += ((ball.y - (com.y + com.height/2)))*0.1;
+          
+          if(ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height){
+              ball.velocityY = -ball.velocityY;
+          }
+          
+          let player = (ball.x + ball.radius < canvas.width/2) ? user : com;
+          
+          if(collision(ball,player)){
+              let collidePoint = (ball.y - (player.y + player.height/2));
+              collidePoint = collidePoint / (player.height/2);
+              
+              let angleRad = (Math.PI/4) * collidePoint;
+              
+              let direction = (ball.x + ball.radius < canvas.width/2) ? 1 : -1;
+              ball.velocityX = direction * ball.speed * Math.cos(angleRad);
+              ball.velocityY = ball.speed * Math.sin(angleRad);
+              
+              ball.speed += 0.1;
+          }
+      }
 
-	  createCorner({
-	    x: -centerX,
-	    y: -centerY
-	  },{
-	    x: -centerX + cornerRadius,
-	    y: -centerY + cornerRadius
-	  })
+      function render(){
+          
+          drawRect(0, 0, canvas.width, canvas.height, "#000");
+          
+          drawText(user.score,canvas.width/4,canvas.height/5);
+          
+          drawText(com.score,3*canvas.width/4,canvas.height/5);
+          
+          drawNet();
+          
+          drawRect(user.x, user.y, user.width, user.height, user.color);
+          
+          drawRect(com.x, com.y, com.width, com.height, com.color);
+          
+          drawArc(ball.x, ball.y, ball.radius, ball.color);
+      }
+      function game(){
+          update();
+          render();
+      }
+      let framePerSecond = 1000;
 
-	  function createCorner(start, end){
-	    let sum = 0
-	    let map = []
-	    const sizeX = end.x - start.x
-	    const sizeY = end.y - start.y
+      let loop = setInterval(game,1000/framePerSecond);
 
-	    for(let i = 0; i < cornerSteps + 1; i++){
-	      sum += i
-	      map.push(sum)
-	    }
-
-	    function stepWidth(index, size){
-	      return (size / map[cornerSteps]) * map[index]
-	    }
-
-	    for(let i = 0; i < cornerSteps; i++){
-	      const currentX = stepWidth(i, sizeX) + start.x
-	      const currentY = stepWidth(cornerSteps - i, sizeY) + start.y
-	      const nextX = stepWidth(i + 1, sizeX) + start.x
-	      const nextY = stepWidth(cornerSteps - i - 1, sizeY) + start.y
-	      tableMap.push([{x: currentX, y: currentY}, {x: nextX, y: nextY}])
-	    }
-	  }
-
-	  return tableMap
-	}
-
-	planck.testbed('Boxes', function(testbed) {
-	  testbed.y = 0
-	  let canMove = false
-	  const force = 100
-	  const pl = planck
-	  const Vec2 = pl.Vec2
-	  const world = pl.World()
-	  const table = world.createBody()
-	  const tableMap = buildTableMap()
-
-	  //Create Table Walls
-	  tableMap.map(function(edge){
-	    table.createFixture(pl.Edge(Vec2(edge[0].x, edge[0].y), Vec2(edge[1].x, edge[1].y)))
-	  })
-
-	  //Create Goal Detection Sensors
-	  const goalFixureDefinition = { isSensor: true, filterMaskBits:  0x0004 }
-	  const goal1Sensor = table.createFixture(pl.Edge(Vec2(-4, 22.5), Vec2(4, 22.5)), goalFixureDefinition)
-	  const goal2Sensor = table.createFixture(pl.Edge(Vec2(-4, -22.5), Vec2(4, -22.5)), goalFixureDefinition)
-
-	  //Create Paddle Blocking Walls
-	  table.createFixture(pl.Edge(Vec2(-4, 21), Vec2(4, 21)), { filterMaskBits:  0x0002 })
-	  table.createFixture(pl.Edge(Vec2(-4, -21), Vec2(4, -21)), { filterMaskBits:  0x0002 })
-	  table.createFixture(pl.Edge(Vec2(-12, 0), Vec2(12, 0)), { filterMaskBits:  0x0002 })
-
-	  //Create Puck
-	  const puck = world.createBody({
-	    type: 'dynamic',
-	    position: Vec2(0, 0),
-	    bullet: true,
-	    linearDamping: 0.1,
-	    angularDamping: 0.02
-	  })
-	  puck.createFixture(pl.Circle(1), {
-	    density: 0.25,
-	    restitution: 0.9,
-	    filterCategoryBits : 0x0004
-	  })
-
-	  //Create Paddles
-	  const paddleBodyDefinition = (position) => ({
-	    type: 'dynamic',
-	    position: position,
-	    bullet: false,
-	    linearDamping: 10,
-	    angularDamping: 1 
-	  })
-	  const paddleFixtureDefinition = {
-	    restitution: 0,
-	    filterCategoryBits : 0x0002
-	  }
-	  const paddle1 = world.createBody(paddleBodyDefinition(Vec2(0, 16)))
-	  paddle1.createFixture(pl.Circle(1.5), paddleFixtureDefinition)
-	  const paddle2 = world.createBody(paddleBodyDefinition(Vec2(0, -16)))
-	  paddle2.createFixture(pl.Circle(1.5), paddleFixtureDefinition)
-
-	  function updatePosition(e) {
-	    if(canMove){
-	      const vector = Vec2(e.movementX * force, -e.movementY * force)
-	      paddle2.applyForce(vector, Vec2(paddle2.getPosition()), true)
-	    }
-	  }
-
-	  function handleContact(contact) {
-	    const fixtureA = contact.getFixtureA()
-	    const fixtureB = contact.getFixtureB()
-	    if (fixtureA == goal1Sensor) {
-	      alert('player1 scored')
-	      world.destroyBody(puck)
-	    }
-	    if (fixtureA == goal2Sensor) {
-	      alert('player2 scored')
-	      world.destroyBody(puck)
-	    }
-	  }
-
-	  function unlock(){
-	    canMove = document.pointerLockElement === document.body ? true : false
-	  }
-
-	  document.addEventListener('pointerlockchange', () => unlock())
-	  window.addEventListener('mousemove', (e) => updatePosition(e))
-	  document.body.addEventListener('click', () => document.body.requestPointerLock())
-	  world.on('begin-contact', (e) => handleContact(e))
-
-	  return world
-	})
-		
-	</script>
-	
+    </script>
+    
 </body>
 </html>
