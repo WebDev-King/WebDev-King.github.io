@@ -6,186 +6,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ImpossiPONG</title>
 
-    <style>
-      body{
-          background-color: dimgray;
-      }
-      #pong{
-          border: 2px solid #FFF;
-          position: absolute;
-          margin :auto;
-          top:0;
-          right:0;
-          left:0;
-          bottom:0;
-      }
-  </style>
+<style>
+    
+    canvas{
+        background:#000;
+    }
+    
+</style>
 
 </head>
-<body>
     
-      <p>The goal here is not to beat the COM (since that's impossible), 
-    but to make sure the COM gets the lowest score possible after 1 minute. 
-    In other words, it's a test of reflexes. To make it more fun, challenge someone, 
-    and take turns timing each other to see who can get the lowest COM score.</p>
-
-  <canvas id="pong" width="600" height="400"></canvas>
-
-    <script>
-
-      const canvas = document.getElementById("pong");
-      const ctx = canvas.getContext('2d');
-
-      const ball = {
-          x : canvas.width/2,
-          y : canvas.height/2,
-          radius : 10,
-          velocityX : 5,
-          velocityY : 5,
-          speed : 7,
-          color : "WHITE"
-      }
-
-      const user = {
-          x : 0,
-          y : (canvas.height - 100)/2,
-          width : 10,
-          height : 100,
-          score : 0,
-          color : "WHITE"
-      }
-
-      const com = {
-          x : canvas.width - 10,
-          y : (canvas.height - 100)/2,
-          width : 10,
-          height : 100,
-          score : 0,
-          color : "WHITE"
-      }
-
-      const net = {
-          x : (canvas.width - 2)/2,
-          y : 0,
-          height : 10,
-          width : 2,
-          color : "WHITE"
-      }
-
-      function drawRect(x, y, w, h, color){
-          ctx.fillStyle = color;
-          ctx.fillRect(x, y, w, h);
-      }
-
-      function drawArc(x, y, r, color){
-          ctx.fillStyle = color;
-          ctx.beginPath();
-          ctx.arc(x,y,r,0,Math.PI*2,true);
-          ctx.closePath();
-          ctx.fill();
-      }
-
-      canvas.addEventListener("mousemove", getMousePos);
-
-      function getMousePos(evt){
-          let rect = canvas.getBoundingClientRect();
-          
-          user.y = evt.clientY - rect.top - user.height/2;
-      }
-
-      function resetBall(){
-          ball.x = canvas.width/2;
-          ball.y = canvas.height/2;
-          ball.velocityX = -ball.velocityX;
-          ball.speed = 7;
-      }
-
-      function drawNet(){
-          for(let i = 0; i <= canvas.height; i+=15){
-              drawRect(net.x, net.y + i, net.width, net.height, net.color);
+<body>
+    <canvas width="600" height="600"></canvas>
+    
+    <style>
+        
+        const cvs = document.querySelector('canvas');
+        const ctx = cvs.getContext('2d');
+        ctx.fillStyle = "white";
+        ctx.beginPath();
+        ctx.arc(50,50,10,0, Math.PI*2);
+        ctx.fill();
+        const particles = [];
+        const mouse = {
+          x:undefined,
+          y:undefined
+        }
+        let num = 0;
+        class Circle{
+          constructor(){
+            this.x = mouse.x;
+            this.y = mouse.y;
+            this.uX = Math.random()*4-2;
+            this.uY = Math.random()*4-2;
+            this.radius = Math.random()*7+2;
+            this.color = "white";
           }
-      }
-
-      function drawText(text,x,y){
-          ctx.fillStyle = "#FFF";
-          ctx.font = "75px fantasy";
-          ctx.fillText(text, x, y);
-      }
-
-      function collision(b,p){
-          p.top = p.y;
-          p.bottom = p.y + p.height;
-          p.left = p.x;
-          p.right = p.x + p.width;
-          
-          b.top = b.y - b.radius;
-          b.bottom = b.y + b.radius;
-          b.left = b.x - b.radius;
-          b.right = b.x + b.radius;
-          
-          return p.left < b.right && p.top < b.bottom && p.right > b.left && p.bottom > b.top;
-      }
-
-      function update(){
-          
-          if( ball.x - ball.radius < 0 ){
-              com.score++;
-              resetBall();
-          }else if( ball.x + ball.radius > canvas.width){
-              user.score++;
-              resetBall();
+          draw(){
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
+            ctx.closePath();
+            ctx.fill();
           }
-          
-          ball.x += ball.velocityX;
-          ball.y += ball.velocityY;
-          
-          com.y += ((ball.y - (com.y + com.height/2)))*0.1;
-          
-          if(ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height){
-              ball.velocityY = -ball.velocityY;
+          update(){
+            this.x+=this.uX;
+            this.y+=this.uY;
+            if(this.radius>0.2){
+              this.radius-=0.1;
+            }
           }
-          
-          let player = (ball.x + ball.radius < canvas.width/2) ? user : com;
-          
-          if(collision(ball,player)){
-              let collidePoint = (ball.y - (player.y + player.height/2));
-              collidePoint = collidePoint / (player.height/2);
-              
-              let angleRad = (Math.PI/4) * collidePoint;
-              
-              let direction = (ball.x + ball.radius < canvas.width/2) ? 1 : -1;
-              ball.velocityX = direction * ball.speed * Math.cos(angleRad);
-              ball.velocityY = ball.speed * Math.sin(angleRad);
-              
-              ball.speed += 0.1;
+        }
+        cvs.addEventListener('mousemove', function(evt){
+          mouse.x = evt.x;
+          mouse.y = evt.y;
+          for(let i=0;i<2;i++){
+            particles.push(new Circle());
           }
-      }
+        });
+        function loop(){
+           ctx.fillStyle = "rgb(0,0,0,0.1)";
+          ctx.fillRect(0,0,cvs.width,cvs.height);
+          for(let i=0;i<particles.length;i++){
+            particles[i].draw();
+            particles[i].update();
+            for(let j=0;j<particles.length;j++){
+              const dx = particles[i].x-particles[j].x;
+              const dy = particles[i].y-particles[j].y;
+              const distance = Math.sqrt(dx*dx+dy*dy);
+              if(distance<=50){
+              ctx.strokeStyle = particles[i].color;
+              ctx.lineWidth = 0.5;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x,particles[i].y);
+              ctx.lineTo(particles[j].x,particles[j].y);
+              ctx.stroke();
+              ctx.closePath();
+                }
+            }
+            if(particles[i].radius<=0.4){
+              particles.splice(i,1);
 
-      function render(){
-          
-          drawRect(0, 0, canvas.width, canvas.height, "#000");
-          
-          drawText(user.score,canvas.width/4,canvas.height/5);
-          
-          drawText(com.score,3*canvas.width/4,canvas.height/5);
-          
-          drawNet();
-          
-          drawRect(user.x, user.y, user.width, user.height, user.color);
-          
-          drawRect(com.x, com.y, com.width, com.height, com.color);
-          
-          drawArc(ball.x, ball.y, ball.radius, ball.color);
-      }
-      function game(){
-          update();
-          render();
-      }
-      let framePerSecond = 1000;
+            }
+          }
+          num+=5;
 
-      let loop = setInterval(game,1000/framePerSecond);
-
-    </script>
+          requestAnimationFrame(loop);
+        }
+        loop();
+        
+    </style>
     
 </body>
 </html>
